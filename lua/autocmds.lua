@@ -1,9 +1,9 @@
-local debug_grp = vim.api.nvim_create_augroup("GoDebugGroup", { clear = true })
-vim.api.nvim_create_autocmd("ExitPre", {
-  pattern = "*.go",
-  command = "GoBreakSave",
-  group = debug_grp
-})
+-- local debug_grp = vim.api.nvim_create_augroup("GoDebugGroup", { clear = true })
+-- vim.api.nvim_create_autocmd("ExitPre", {
+--   pattern = "*.go",
+--   command = "GoBreakSave",
+--   group = debug_grp
+-- })
 
 --vim.api.nvim_create_autocmd("BufReadPost", {
 --  pattern = "*.go",

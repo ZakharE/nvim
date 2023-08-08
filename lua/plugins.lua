@@ -18,26 +18,26 @@ require("lazy").setup({
   { 'neovim/nvim-lspconfig' },
   {
     "ray-x/go.nvim",
-    dependencies = {   -- optional packages
+    dependencies = { -- optional packages
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
-    -- config = function()
-    --   require("go").setup()
-    -- end,
     event = { "CmdlineEnter" },
     ft = { "go", 'gomod' },
-    build = ':lua require("go.install").update_all_sync()'   -- if you need to install/update all binaries
+    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
   { "folke/neoconf.nvim",                 cmd = "Neoconf" },
   "folke/neodev.nvim",
   {
     "williamboman/mason.nvim",
-    build = ":MasonUpdate"   -- :MasonUpdate updates registry contents
+    build = ":MasonUpdate" -- :MasonUpdate updates registry contents
   },
   {
     'ray-x/navigator.lua',
+    config = function()
+      require('navigator').setup()
+    end,
     requires = {
       { 'ray-x/guihua.lua',     run = 'cd lua/fzy && make' },
       { 'neovim/nvim-lspconfig' },
@@ -72,29 +72,13 @@ require("lazy").setup({
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
   {
-    "glepnir/lspsaga.nvim",
-    event = "LspAttach",
-    config = function()
-      require("lspsaga").setup({})
-    end,
-    dependencies = { { "nvim-tree/nvim-web-devicons" } }
-  },
-  {
-    "Pocco81/auto-save.nvim",
-    config = function()
-      require("auto-save").setup {
-        -- your config goes here
-        -- or just leave it empty :)
-      }
-    end,
-  },
-  {
     "kdheepak/lazygit.nvim",
     -- optional for floating window border decoration
     requires = {
       "nvim-lua/plenary.nvim",
     },
   },
+  { 'mfussenegger/nvim-jdtls' },
   {
     "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
@@ -102,7 +86,7 @@ require("lazy").setup({
   {
     "L3MON4D3/LuaSnip",
     -- follow latest release.
-    version = "1.*",   -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    version = "1.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     -- install jsregexp (optional!).
     build = "make install_jsregexp"
   },
@@ -113,26 +97,10 @@ require("lazy").setup({
     end
   },
   { 'rcarriga/nvim-notify' },
-  -- {
-  --   "folke/noice.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     -- add any options here
-  --   },
-  --   dependencies = {
-  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-  --     "MunifTanjim/nui.nvim",
-  --     -- OPTIONAL:
-  --     --   `nvim-notify` is only needed, if you want to use the notification view.
-  --     --   If not available, we use `mini` as the fallback
-  --     "rcarriga/nvim-notify",
-  --   }
-  -- },
   { 'mfussenegger/nvim-dap' },
   { "rcarriga/nvim-dap-ui",             requires = { "mfussenegger/nvim-dap" } },
   { 'theHamsta/nvim-dap-virtual-text' },
   { 'nvim-telescope/telescope-dap.nvim' },
-  { 'yamatsum/nvim-cursorline' },
   {
     'tanvirtin/vgit.nvim',
     requires = {
@@ -191,6 +159,8 @@ require("lazy").setup({
     end,
   },
   { "shortcuts/no-neck-pain.nvim" },
-  { "ellisonleao/dotenv.nvim"}
+  { "ellisonleao/dotenv.nvim" },
+  { 'tpope/vim-dadbod' },
+  { 'kristijanhusak/vim-dadbod-ui' }
 }
 )

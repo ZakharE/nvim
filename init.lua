@@ -3,7 +3,7 @@ require("autocompletion")
 require("ui")
 require('neoclipboard')
 require("git")
-require("autocmds")
+--require("autocmds")
 require("mason").setup()
 require('telescope').load_extension('neoclip')
 
@@ -65,62 +65,14 @@ wk.register({
   ['<leader>fb'] = { '<cmd>Telescope buffers<cr>', 'Find buffer' },
   ['<leader>fh'] = { '<cmd>Telescope help_tags<cr>', 'Find in help tags' },
   ['<leader>fy'] = { '<cmd>Telescope neoclip<cr>', "Find in yanked list" },
-  ['<leader>fa'] = { '<cmd>Telescope lsp_workspace_symbols<cr>', "Find in yanked list" }
+  ['<leader>fa'] = { '<cmd>Telescope lsp_workspace_symbols<cr>', "Find in workspace symbols" }
 })
 
 local keymap = vim.keymap.set
 
 
--- Lspsaga
+-- Lazygit
 wk.register({
-  ['<leader>lf'] = { function() vim.lsp.buf.format() end, "Format code" },
-  -- LSP finder - Find the symbol's definition
-  -- If there is no definition, it will instead be hidden
-  -- When you use an action in finder like "open vsplit",
-  -- you can use <C-t> to jump back
-  ['gh'] = { "<cmd>Lspsaga lsp_finder<CR>", "Symbol definition" },
-  -- Code action
-  ['<leader>ca'] = { "<cmd>Lspsaga code_action<CR>", "Code actions", mode = { "n", "v" } },
-  -- Rename all occurrences of the hovered word for the entire file
-  ['<leader>rn'] = { "<cmd>Lspsaga rename <CR>", "Rename" },
-  -- Peek definition
-  -- You can edit the file containing the definition in the floating window
-  -- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
-  -- It also supports tagstack
-  -- Use <C-t> to jump back
-  ['gp'] = { "<cmd>Lspsaga peek_definition<CR>", "Peek definition" },
-  ['gd'] = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
-  -- Show line diagnostics
-  -- You can pass argument ++unfocus to
-  -- unfocus the show_line_diagnostics floating window
-  ["<leader>sl"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Line diagnostics" },
-
-  -- Show buffer diagnostics
-  ["<leader>sb"] = { "<cmd>Lspsaga show_buf_diagnostics<CR>", "Buf diagnostics" },
-
-  -- Show workspace diagnostics
-  ["<leader>sw"] = { "<cmd>Lspsaga show_workspace_diagnostics<CR>", "Workspace diagnostics" },
-
-  -- Show cursor diagnostics
-  ["<leader>sc"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Under cursor diagnostics" },
-
-  -- Diagnostic jump
-  -- You can use <C-o> to jump back to your previous location
-  ["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Go to prev error" },
-  ["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Go to next error" },
-  -- Toggle outline
-  ["<leader>o"] = { "<cmd>Lspsaga outline<CR>", "Bufer outline" },
-  -- Hover Doc
-  -- If there is no hover doc,
-  -- there will be a notification stating that
-  -- there is no information available.
-  -- To disable it just use ":Lspsaga hover_doc ++quiet"
-  -- Pressing the key twice will enter the hover window
-  --["K"]={ "<cmd>Lspsaga hover_doc ++keep<CR>","Hover doc"}
-  ["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover doc" },
-  -- Call hierarchy
-  ["<Leader>ci"] = { "<cmd>Lspsaga incoming_calls<CR>", "Incoming calls" },
-  ["<Leader>co"] = { "<cmd>Lspsaga outgoing_calls<CR>", "Outcoming calls" },
   ["<Leader>gg"] = { "<cmd>LazyGit<CR>", "Call Lazygit" }
 })
 
@@ -176,8 +128,15 @@ wk.register({
   ["<leader>,d"] = {"<cmd>GoDebug<cr>", "Start debug"},
   ["<leader>,s"] = {"<cmd>GoDbgStop<cr>", "Stop debug"},
   ["<leader>,b"] = {"<cmd>GoBreakToggle<cr>", "Toggle breakpoint"},
+  ["<leader>,u"] = {"<cmd>lua require('dapui').open()<cr>", "Open UI"}
+})
+--java specific
+wk.register({
+  ["<leader>jt"] = {"<cmd>lua require'jdtls'.test_nearest_method()<cr>"},
+  ["<leader>jc"] = {"<cmd>lua require'jdtls'.test_class()<cr>"}
 })
 
-
-require('dotenv').setup()
+vim.cmd("autocmd FileType guihua lua require('cmp').setup.buffer { enabled = false }")
+vim.cmd("autocmd FileType guihua_rust lua require('cmp').setup.buffer { enabled = false }")
+--require('dotenv').setup()
 
